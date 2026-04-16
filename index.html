@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love! ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --soft-pink: #ffccd5;
+            --dark-pink: #c9184a;
+            --bg-pink: #fff0f3;
+        }
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Poppins', 'Nirmala UI', sans-serif;
+            background: var(--bg-pink);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow: hidden;
+            position: relative;
+        }
+        .container {
+            width: 90%; max-width: 600px;
+            position: relative; z-index: 10;
+        }
+        .page {
+            display: none; width: 100%;
+            text-align: center; animation: fadeIn 0.8s ease-in-out;
+        }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .next-btn {
+            background: linear-gradient(45deg, var(--primary-pink), #ff758f);
+            color: white; border: none; padding: 12px 35px; border-radius: 25px;
+            cursor: pointer; margin-top: 25px; font-weight: bold; font-size: 16px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            border: 2px solid white; transition: transform 0.2s;
+        }
+        .next-btn:hover { transform: scale(1.05); }
+
+        .calendar-box {
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: inline-block;
+            border: 2px solid var(--soft-pink);
+        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+        .calendar-grid div { padding: 8px; font-size: 14px; }
+        .heart-date {
+            background: red; color: white; border-radius: 50%;
+            font-weight: bold; box-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+
+        .framed-photo {
+            border: 8px solid white; border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); width: 100%; max-width: 250px;
+        }
+
+        #slideImg {
+            width: 100%; height: 350px; object-fit: cover;
+            border-radius: 15px; border: 5px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .flower {
+            position: absolute; width: 20px; height: 20px;
+            opacity: 0.6; z-index: 1; pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="page1" class="page active">
+            <h1 style="color: var(--dark-pink);">Happy Birthday to you my love ❤️</h1>
+            <img src="1757830738535.jpg" alt="Start" style="width: 100%; border-radius: 15px; cursor: pointer;" onclick="playPart1()">
+            <p id="click-hint" style="color: var(--dark-pink); font-weight: bold;">ඉහත පින්තූරය ක්ලික් කරන්න... ✨</p>
+            <div id="cake-area" style="display: none;">
+                <img src="cake.png" alt="Cake" style="width: 140px; cursor: pointer; animation: pulse 1.5s infinite;" onclick="celebrate()">
+                <p style="font-size: 14px; color: var(--dark-pink); font-weight: bold;">කේක් එක ක්ලික් කරන්න! 🎂</p>
+                <button class="next-btn" onclick="nextPage(2)">Next</button>
+            </div>
+        </div>
+
+        <div id="page2" class="page">
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                <h2 style="color: var(--dark-pink);">It's your<br>birthday</h2>
+                <div class="calendar-box">
+                    <h4 style="margin: 0 0 10px 0;">April 2026</h4>
+                    <div class="calendar-grid">
+                        <div></div><div></div><div></div>
+                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div>
+                        <div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div>
+                        <div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div>21</div>
+                        <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div class="heart-date">27</div>
+                        <div>28</div><div>29</div><div>30</div>
+                    </div>
+                </div>
+            </div>
+            <button class="next-btn" onclick="nextPage(3)">Next</button>
+        </div>
+
+        <div id="page3" class="page">
+            <div style="background: white; padding: 25px; border-radius: 20px; border: 2px solid var(--soft-pink);">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                    <img src="IMG-20260101-WA0006.jpg" class="framed-photo" alt="My Punchi Mala">
+                    <div style="text-align: center; color: #444; line-height: 1.6; font-size: 15px;">
+                        <h3 style="color: var(--dark-pink);">🎂 Happy Birthday, <br>My Punchi Mala 🌸</h3>
+                        <p>On your special day, I just want you to know how truly special you are to me. You fill my life with happiness, love, and beautiful moments I’ll always cherish.</p>
+                        <p>Please take good care of yourself, stay safe, and never lose that lovely smile of yours. 💫</p>
+                        <p>I wish you a future full of success, peace, and endless happiness. May all your dreams come true.</p>
+                        <p style="font-weight: bold; color: var(--primary-pink);">No matter where life takes us, you will always have a special place in my heart. ❤️</p>
+                        <p>I love you so much. 🌹</p>
+                    </div>
+                </div>
+            </div>
+            <button class="next-btn" onclick="nextPage(4)">Next</button>
+        </div>
+
+        <div id="page4" class="page">
+            <video id="bdayVideo" width="100%" style="border-radius: 15px;" controls onended="showBtn('video-next')">
+                <source src="video.mp4" type="video/mp4">
+            </video>
+            <button id="video-next" class="next-btn" style="display: none;" onclick="nextPage(5)">Next</button>
+        </div>
+
+        <div id="page5" class="page">
+            <img id="slideImg" src="">
+            <p style="color: var(--dark-pink); font-weight: bold; margin-top: 15px;">මතකයන් පෙළගැසෙන විට... 📸</p>
+            <audio id="customSong" src="custom_song.mp3" onended="showBtn('song-next')"></audio>
+            <button id="song-next" class="next-btn" style="display: none;" onclick="nextPage(6)">Next</button>
+        </div>
+
+        <div id="page6" class="page">
+            <img src="1762677192677.jpg" style="width: 100%; border-radius: 15px; border: 5px solid white;">
+            <h1 style="color: var(--dark-pink);">Happy Birthday & I Love you my angel.. 👼</h1>
+        </div>
+    </div>
+
+    <audio id="mainBdaySong" src="birthday_song.mp3"></audio>
+
+    <script>
+        const photoList = [
+            "1757830738535.jpg", "1760390069206.jpg", "1762322355198.jpg", "1762677192167.jpg",
+            "1762677152644 (1).jpg", "1762677192677.jpg", "IMG-20241106-WA0071.jpg", 
+            "IMG-20250110-WA0001.jpg", "IMG-20250526-WA0003.jpg", "IMG-20250302-WA0010.jpg",
+            "IMG-20250529-WA0014.jpg", "IMG-20250611-WA0028.jpg", "IMG-20250621-WA0008.jpg",
+            "IMG-20250627-WA0035.jpg", "IMG-20250806-WA0007.jpg", "IMG-20250902-WA0006.jpg",
+            "IMG-20251001-WA0014.jpg", "IMG-20251005-WA0006.jpg", "IMG-20251009-WA0009.jpg",
+            "IMG-20251010-WA0000.jpg", "IMG-20251107-WA0014.jpg", "IMG-20251104-WA0005.jpg",
+            "IMG-20260101-WA0006.jpg", "IMG-20260127-WA0034.jpg", "IMG-20260127-WA0022.jpg",
+            "IMG-20260131-WA0010.jpg", "IMG-20260206-WA0006.jpg", "IMG-20260212-WA0006.jpg",
+            "IMG-20260304-WA0018.jpg", "IMG-20260316-WA0005.jpg", "IMG-20260317-WA0016.jpg",
+            "IMG-20260324-WA0022.jpg", "IMG-20260330-WA0005.jpg", "IMG-20260330-WA0017.jpg"
+        ];
+
+        let currentPhotoIndex = 0;
+
+        function nextPage(num) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + num).classList.add('active');
+            if(num === 5) startSlideshow();
+        }
+
+        function playPart1() {
+            document.getElementById('mainBdaySong').play();
+            document.getElementById('cake-area').style.display = 'block';
+            document.getElementById('click-hint').style.display = 'none';
+        }
+
+        function celebrate() {
+            var duration = 4 * 1000;
+            var end = Date.now() + duration;
+            (function frame() {
+              confetti({ particleCount: 6, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d', '#ffb3c1'] });
+              confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4d6d', '#ffb3c1'] });
+              if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        function showBtn(id) { document.getElementById(id).style.display = 'inline-block'; }
+
+        function startSlideshow() {
+            const slideImg = document.getElementById('slideImg');
+            document.getElementById('customSong').play();
+            slideImg.src = photoList[0];
+            setInterval(() => {
+                currentPhotoIndex = (currentPhotoIndex + 1) % photoList.length;
+                slideImg.src = photoList[currentPhotoIndex];
+            }, 3000);
+        }
+
+        // Flower Background Logic
+        const flowerEmojis = ['🌸', '🌺', '🌹', '❤️'];
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.innerText = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            flower.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 5 + 7 + 's';
+            flower.style.animation = `float ${duration} linear`;
+            document.body.appendChild(flower);
+            setTimeout(() => { flower.remove(); }, 10000);
+        }
+        setInterval(createFlower, 500);
+    </script>
+
+    <style>
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</body>
+</html>
